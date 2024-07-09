@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TaskMaster.Models;
 using Xunit;
 
@@ -7,7 +11,7 @@ namespace TaskMaster.Tests
     public class PersonTests
     {
         [Fact]
-        public void ConstructTests()
+        public void constructTests()
         {
             // Arrange
             int expectedId = 1;
@@ -43,5 +47,6 @@ namespace TaskMaster.Tests
             Assert.Throws<ArgumentException>(() => person.LastName = null);
             Assert.Throws<ArgumentException>(() => person.LastName = "");
         }
+
     }
 }

@@ -2,6 +2,10 @@
 {
     public class Person
     {
+        public Person()
+        {
+        }
+
         // Private fields
         private readonly int id; //read only
         private string firstName;
@@ -21,9 +25,8 @@
             FirstName = firstName;
             LastName = lastName;
         }
-
+        //Public values / no nulls or empties
         public int Id => id;
-
         public string FirstName
         {
             get => firstName;

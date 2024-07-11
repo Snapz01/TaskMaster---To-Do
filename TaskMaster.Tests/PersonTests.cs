@@ -13,7 +13,7 @@ namespace TaskMaster.Tests
         [Fact]
         public void constructTests()
         {
-            // Arrange
+            // Arrange // set id
             int expectedId = 1;
             string expectedFirstName = "Timmy";
             string expectedLastName = "Larsson";
@@ -21,7 +21,7 @@ namespace TaskMaster.Tests
             // Act
             var person = new Person(expectedId, expectedFirstName, expectedLastName);
 
-            // Assert
+            // Assert // verify match
             Assert.Equal(expectedId, person.Id);
             Assert.Equal(expectedFirstName, person.FirstName);
             Assert.Equal(expectedLastName, person.LastName);
@@ -32,7 +32,7 @@ namespace TaskMaster.Tests
             // Arrange
             var person = new Person(1);
 
-            // Act & Assert
+            // Act & Assert // verify Firstname null or empty
             Assert.Throws<ArgumentException>(() => person.FirstName = null);
             Assert.Throws<ArgumentException>(() => person.FirstName = "");
         }
@@ -43,7 +43,7 @@ namespace TaskMaster.Tests
             // Arrange
             var person = new Person(1);
 
-            // Act & Assert
+            // Act & Assert // == ^ same but lastname
             Assert.Throws<ArgumentException>(() => person.LastName = null);
             Assert.Throws<ArgumentException>(() => person.LastName = "");
         }

@@ -1,22 +1,10 @@
-﻿@model IEnumerable<TaskMaster.Models.Person>
-
-@{
-    ViewData["Title"] = "Persons";
+﻿@{
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>Persons</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about building web apps with ASP.NET Core.</p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
-            <th>@Html.DisplayNameFor(model => model.LastName)</th>
-            <th></th>
-        </tr>
-    </thead>
-    </tbody>
-</table>
+    <a class="btn btn-primary" href="@Url.Action("Index", "People")">Go to TaskMaster</a>
+</div>

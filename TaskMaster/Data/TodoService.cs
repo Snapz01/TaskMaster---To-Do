@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TaskMaster.Models;
 
 namespace TaskMaster.Data
@@ -37,6 +36,35 @@ namespace TaskMaster.Data
         public void Clear()
         {
             todos = new Todo[0];
+        }
+
+        public Todo[] FindByDoneStatus(bool doneStatus)
+        {
+            return todos.Where(t => t.Done == doneStatus).ToArray();
+        }
+
+        public Todo[] FindByAssignee(int personId)
+        {
+            return todos.Where(t => t.Assignee != null && t.Assignee.Id == personId).ToArray();
+        }
+
+        public Todo[] FindByAssignee(Person assignee)
+        {
+            return todos.Where(t => t.Assignee == assignee).ToArray();
+        }
+
+        public Todo[] FindUnassignedTodoItems()
+        {
+            return todos.Where(t => t.Assignee == null).ToArray();
+        }
+
+        public void RemoveTodoById(int todoId)
+        {
+            int index = Array.FindIndex(todos, t => t.Id == todoId);
+            if (index >= 0)
+            {
+                todos = todos.Where((val, idx) => idx != index).ToArray();
+            }
         }
     }
 }

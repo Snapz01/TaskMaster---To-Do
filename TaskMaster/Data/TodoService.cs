@@ -17,7 +17,7 @@ namespace TaskMaster.Data
             return todos;
         }
 
-        public Todo FindById(int todoId)
+        public Todo? FindById(int todoId)
         {
             return todos.FirstOrDefault(t => t.Id == todoId);
         }

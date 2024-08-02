@@ -1,25 +1,31 @@
 ﻿using System.Linq;
 using TaskMaster.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TaskMaster.Data
 {
     public class PeopleService
     {
-        private static Person[] people = new Person[0];
+        private readonly AppDbContext _context;
+
+        public PeopleService(AppDbContext context)
+        {
+            _context = context;
+        }
 
         public int Size()
         {
-            return people.Length;
+            return _context.Persons.Count();
         }
 
         public Person[] FindAll()
         {
-            return people;
+            return _context.Persons.ToArray();
         }
 
-        public Person FindById(int personId)
+        public Person? FindById(int personId)
         {
-            return people.FirstOrDefault(p => p.Id == personId);
+            return _context.Persons.FirstOrDefault(p => p.Id == personId);
         }
 
         public Person CreatePerson(string firstName, string lastName)
@@ -27,23 +33,28 @@ namespace TaskMaster.Data
             int personId = PersonSequencer.NextPersonId();
             Person newPerson = new Person(personId, firstName, lastName);
 
-            Array.Resize(ref people, people.Length + 1);
-            people[people.Length - 1] = newPerson;
+            _context.Persons.Add(newPerson);
+            _context.SaveChanges();
 
             return newPerson;
         }
 
         public void Clear()
         {
-            people = new Person[0];
+            foreach (var person in _context.Persons)
+            {
+                _context.Persons.Remove(person);
+            }
+            _context.SaveChanges();
         }
 
         public void RemovePersonById(int personId)
         {
-            int index = Array.FindIndex(people, p => p.Id == personId);
-            if (index >= 0)
+            var person = _context.Persons.FirstOrDefault(p => p.Id == personId);
+            if (person != null)
             {
-                people = people.Where((val, idx) => idx != index).ToArray();
+                _context.Persons.Remove(person);
+                _context.SaveChanges();
             }
         }
     }
